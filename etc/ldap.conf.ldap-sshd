@@ -1,0 +1,48 @@
+# @(#)$Id: ldap.conf,v 1.38 2006/05/15 08:13:31 lukeh Exp $
+# MM 141001 cleanup
+# This is the configuration file for the LDAP nameservice
+# switch library and the LDAP PAM module.
+#
+# The man pages for this file are nss_ldap(5) and pam_ldap(5)
+#
+# PADL Software
+# http://www.padl.com
+#
+include /opt/share/doc/nss_ldap-253/ldapns.schema
+base dc=cexample,dc=com
+timelimit 15
+bind_timelimit 10
+idle_timelimit 300
+nss_initgroups_ignoreusers root,ldap,named,avahi,haldaemon,dbus,radvd,tomcat,radiusd,news,mailman,nscd,gdm,ncadmin,nslcd,postgres,mysql,uucp,mail,syslog,zabbix
+#LDAP1 requires hosts entry
+uri ldaps://ldap2.example.com ldaps://ldap1
+pam_password md5
+ssl on
+# main CA cert file
+tls_cacert /etc/openldap/cacerts/ca_ldap_cert.pem
+# CA cert files folder, must be hashed by cacertdir_rehash(1)
+tls_cacertdir /etc/openldap/cacerts
+# require and verify server certificate
+tls_checkpeer yes
+bind_policy soft
+# the distinguished name to bind to the server with.
+binddn cn=nss,ou=system,dc=example,dc=com
+# the credentials to bind with. 
+bindpw changeme
+# the distinguished name to bind to the server with
+# if the effective user ID is root. Password is
+# stored in /etc/ldap.secret (mode 400)
+rootbinddn cn=nss,ou=system,dc=example,dc=com
+# group member attribute
+pam_member_attribute member
+# print this message when users try to change password
+pam_password_prohibit_message Please contact ops team to change your password
+# nsswitch search informations, the format is :
+# nss_base_XXX          base?scope?filter
+nss_base_passwd         ou=People,dc=example,dc=com?one 
+nss_base_shadow         ou=People,dc=example,dc=com?one 
+nss_base_group          ou=Group,dc=example,dc=com?one 
+nss_base_hosts		ou=Hosts,dc=example,dc=com?one
+# --
+# sudo(8) options
+sudoers_base ou=SUDOers,ou=role,dc=example,dc=com
