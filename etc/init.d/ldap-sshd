@@ -174,7 +174,7 @@ case "$1" in
 		fi
 		;;
 	status)
-		status -p $PID_FILE CNCssh-daemon
+		status -p $PID_FILE LDAPssh-daemon
 		RETVAL=$?
 		;;
 	*)
