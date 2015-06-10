@@ -116,4 +116,3 @@ PidFile /var/run/sshd-nc.pid
 
 # override default of no subsystems
 Subsystem	sftp	/usr/libexec/openssh/sftp-server
-AllowUsers     *@123.103.98.67 *@116.247.86.18 *@61.129.13.27 *@123.103.98.79 *@10.3.1.67 *@10.2.1.27 *@180.150.140.52
