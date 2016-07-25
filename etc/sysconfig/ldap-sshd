@@ -1,1 +1,1 @@
-OPTIONS="-f /etc/ssh/sshd-nc_config"
+OPTIONS="-f /etc/ssh/ldap-sshd_config"
