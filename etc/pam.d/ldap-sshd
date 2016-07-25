@@ -1,6 +1,6 @@
-# PAM configuration for the CNC Secure Shell service
+# PAM configuration for the LDAP Secure Shell service
 # 290911 - MAM
-# CNC-ssh LDAP authentication.
+# SSH LDAP authentication.
 # here are the per-package modules (the "Primary" block)
 auth	[success=2 default=ignore]	pam_unix.so nullok_secure
 auth	[success=1 default=ignore]	pam_ldap.so use_first_pass
@@ -34,7 +34,7 @@ session	requisite			pam_deny.so
 # since the modules above will each just jump around
 session	required			pam_permit.so
 
-# CNC-ssh LDAP session setup and teardown.
+# SSH LDAP session setup and teardown.
 session	required			pam_ldap.so 
 
 # Print the status of the user's mailbox upon successful login.
@@ -46,7 +46,7 @@ session     optional      pam_mkhomedir.so
 # Set up user limits from /etc/security/limits.conf.
 session    required     pam_limits.so
 
-# CNC ssh Un*x password updating.
+# SSH Un*x password updating.
 password	[success=1 default=ignore]	pam_ldap.so try_first_pass
 password    sufficient    pam_ldap.so use_authtok
 
